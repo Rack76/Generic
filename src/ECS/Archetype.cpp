@@ -10,6 +10,8 @@ int Generic::Archetype::addEntity(int entityTypeId) {
 	return entityId;
 }
 
-void Generic::Archetype::removeEntity(int entityLocalId) {
-
+void Generic::Archetype::removeEntity(int entityId, int entityTypeId) {
+	entities.erase(entityId);
+	//TODO erase components asociated with this entity
+	entityIdAllocator.returnName(entityId);
 }

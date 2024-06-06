@@ -16,13 +16,13 @@ void Generic::ArchetypeManager::removeEntity(int entityId) {
 
     const auto& location = entityLocations[entityId];
     int entityTypeId = location.first;
-    int entityLocalId = location.second;
+    int entityIndex = location.second;
 
     assertNoAbort([&entityTypeId]()->bool {return entityTypeId < Generic::EntityManager::maxEntityTypeCount; },
         "ArchetypeManager :: removeEntity :: entity type ID " + std::to_string(entityTypeId) + "out of bounds,"
         " you may increase maximum entity type count if required.");
 
-    archetypes[entityTypeId].removeEntity(entityLocalId);
+    archetypes[entityTypeId].removeEntity(entityIndex, entityTypeId);
 
     entityLocations.erase(entityId);
 	entityIDsAllocator.returnName(entityId);

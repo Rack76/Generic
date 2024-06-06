@@ -44,6 +44,7 @@ namespace Generic{
 
 	private:
 		static int addEntity(int entityTypeId);
+		static void removeEntity(int entityId, int entityTypeId);
 
 		static int entityTypeIDCount;
 		static std::unordered_map<int, VLUI64> entityTypeMasks;
