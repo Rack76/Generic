@@ -23,6 +23,7 @@ namespace Generic {
 		bool noNameReserved();
 		void setMaxCount(int maxCount);
 		int lastNameReserved();
+		std::unordered_map<int, int>& data();
 
 	private:
 		int maxCount;

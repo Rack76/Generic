@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <vector>
 #include <functional>
 #include <cmath>
 
@@ -14,8 +15,15 @@ namespace Generic {
 
 		}
 
-		VLUI64(int bitPosition) {
-			set(bitPosition);
+		VLUI64(std::vector<int> &&signature) {
+			for (int id : signature)
+			{
+				set(id);
+			}
+		}
+
+		VLUI64(int &&bitPosition) {
+			set(std::move(bitPosition));
 		}
 
 		VLUI64(std::unordered_map<unsigned int, std::uint64_t>& _words) : words(_words) {
@@ -44,14 +52,26 @@ namespace Generic {
 		VLUI64 operator& (const VLUI64& r) const {
 			auto wordsCopy = words;
 			auto rWordsCopy = r.words;
-			for (auto i = wordsCopy.begin(); i != wordsCopy.end(); i++)
+			for (auto i = wordsCopy.begin(); i != wordsCopy.end();)
 			{
 				wordsCopy[i->first] = wordsCopy[i->first] & rWordsCopy[i->first];
+				if (wordsCopy[i->first] == 0)
+					i = wordsCopy.erase(i);
+				else
+					i++;
 			}
-			for (auto i = r.words.begin(); i != r.words.end(); i++)
+			for (auto i = r.words.begin(); i != r.words.end();)
 			{
 				if (wordsCopy.find(i->first) == wordsCopy.end())
+				{
 					wordsCopy[i->first] = wordsCopy[i->first] & r.words.at(i->first);
+					if (wordsCopy[i->first] == 0)
+						i = rWordsCopy.erase(i);
+					else
+						i++;
+				}
+				else
+					i++;
 			}
 
 			return VLUI64(wordsCopy);
@@ -90,7 +110,7 @@ namespace Generic {
 			return false;
 		}
 
-		bool isEmpty() const{
+		bool isZero() const{
 			return words.size() == 0;
 		}
 	private:

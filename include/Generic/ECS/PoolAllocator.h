@@ -9,16 +9,17 @@
 #include "Generic/Util/NameAllocator.h"
 #include "Generic/Util/Util.h"
 #include "Generic/Util/RTTI.h"
-#include "Generic/ECS/EntityManager.h"
 
 
 namespace Generic {
 
 	class PoolAllocator {
 	public:
+
 		virtual Component* getComponent(const int&) = 0;
+		virtual Component* getComponentWithArg(const int&, Component &&c) = 0;
 		virtual void alloc() = 0;
-		virtual bool isEmpty() = 0;
+		virtual bool isEmpty() noexcept = 0;
 		virtual void returnComponent(const int&, Component*) = 0;
 		virtual void returnComponentWithCopy(const int&, Component*) = 0;
 	};
@@ -28,18 +29,35 @@ namespace Generic {
 	{
 	public:
 		virtual Component* getComponent(const int& entityTypeId) {
+			assertNoAbort([&entityTypeId, this]()->bool {return blocks.find(entityTypeId) == blocks.end() && blocks.size() == blockCount;  },
+				"PoolAllocator :: getComponent :: maximum block count reached"
+				" you may increase block cout for component type " + GRTTI::typeName<T>() + " if required.");
+			int block = blocks[entityTypeId];
+			int index = componentIndicesAllocator[block].getName();
+			assertNoAbort([&index]()->bool {return index < blockSize; }, "PoolAllocator :: getComponent :: component index out of bounds"
+				" you may increase block size for component type" + GRTTI::typeName<T>() + " if required.");
+			Component* c = reinterpret_cast<Component*>(&data[block][index]);
+			reservedComponentIndices[block][c] = index;
+			return c;
+		}
+
+		virtual Component* getComponentWithArg(const int& entityTypeId, Component &&arg) {
+			assertNoAbort([&entityTypeId, this]()->bool {return blocks.find(entityTypeId) == blocks.end() && blocks.size() == blockCount; },
+				"PoolAllocator :: getComponent :: maximum block count reached"
+				" you may increase block cout for component type " + GRTTI::typeName<T>() + " if required.");
 			int block = blocks[entityTypeId];
 			int index = componentIndicesAllocator[block].getName();
 			assertNoAbort([&index, this]()->bool {return index < blockSize; }, "PoolAllocator :: getComponent :: component index out of bounds"
-				" you may increase block size for component " + GRTTI::typeName<T>() + " if required.");
+				" you may increase block size for component type" + GRTTI::typeName<T>() + " if required.");
+			data[block][index] = T(reinterpret_cast<T&&>(arg));
 			Component* c = reinterpret_cast<Component*>(&data[block][index]);
 			reservedComponentIndices[block][c] = index;
 			return c;
 		}
 
 		virtual void alloc() {
-			int blockCount = EntityManager::entityTypeLists[GRTTI::typeId<T>()].size();
-
+			data.shrink_to_fit();
+			data.reserve(blockCount * blockSize);
 			for (int i = 0; i < blockCount; i++)
 			{
 				data.push_back(std::vector<T>());
@@ -47,19 +65,11 @@ namespace Generic {
 				{
 					data[i].push_back(T());
 				}
-				for (int i = 0; i < blockCount; i++)
-				{
-					blocks[EntityManager::entityTypeLists[GRTTI::typeId<T>()][i]] = i;
-				}
-				for (int i = 0; i < blockCount; i++)
-				{
-					componentIndicesAllocator[EntityManager::entityTypeLists[GRTTI::typeId<T>()][i]] =
-						NameAllocator(blockSize);
-				}
+				componentIndicesAllocator[i] = NameAllocator(blockSize);
 			}
 		}
 
-		virtual bool isEmpty() {
+		virtual bool isEmpty() noexcept {
 			return data.size() == 0;
 		}
 
@@ -89,7 +99,7 @@ namespace Generic {
 		}
 
 	private:
-		static int blockCount;
+		static const int blockCount = 3;
 		static const int blockSize = 16;
 		std::vector<std::vector<T>> data;
 		std::unordered_map<int, int> blocks;
