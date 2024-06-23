@@ -3,11 +3,12 @@
 
 #include <typeinfo>
 #include <string>
+#include <map>
+#include <cstdint>
 #include "Generic/Util/VLUI64.h"
 
 namespace Generic {
-	class GRTTI {
-	public:
+	struct GRTTI {
 		template <typename T>
 		static std::string typeName() {
 			static std::string&& name = typeid(T).name();
@@ -16,24 +17,38 @@ namespace Generic {
 		}
 
 		template <typename T>
+		static int _typeId() {
+			std::string a = typeName<T>();
+			static int TypeId = _typeIDCount++;
+			return TypeId;
+		}
+
+		static int initTypeId(const Generic::VLUI64&& mask) {
+			if (typeIds.find(mask) == typeIds.end())
+			{
+				typeIds[mask] = typeIDCount++;
+			}
+			return typeIds[mask];
+		}
+
+		template <typename T, typename ...Types>
 		static int typeId() {
-			static int typeID = typeIDCount++;
-			return typeID;
+			Generic::VLUI64&& typeMask = (VLUI64(GRTTI::_typeId<Types>()) | ... | VLUI64(GRTTI::_typeId<T>()));
+			static int TypeId = initTypeId(std::move(typeMask));
+			return TypeId;
 		}
 
-		template <typename T>
-		static VLUI64 typeMask() {
-			static VLUI64&& TypeMask = VLUI64(typeId<T>());
-			return TypeMask;
-		}
-
-		static VLUI64 typeMask(int typeId) {
-			static VLUI64&& TypeMask = VLUI64(typeId);
-			return TypeMask;
+		static int typeId(std::vector<int> &&signature)
+		{
+			VLUI64 mask = VLUI64(std::move(signature));
+			return initTypeId(std::move(mask));
 		}
 
 	private:
 		static int typeIDCount;
+		static std::map<Generic::VLUI64, int> typeIds;
+		static int _typeIDCount;
+		static const int TypeId;
 	};
 }
 

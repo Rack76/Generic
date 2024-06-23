@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_compile_definitions(GLEW_STATIC)
 
 file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/*.cpp")
-file(GLOB_RECURSE INCLUDE "${CMAKE_SOURCE_DIR}/include/*.h")
+file(GLOB_RECURSE INCLUDE "${CMAKE_SOURCE_DIR}/include/*.h" "${CMAKE_SOURCE_DIR}/src/*.tpp")
 file(GLOB_RECURSE LIB "${CMAKE_SOURCE_DIR}/lib/*.lib")
 
 add_subdirectory(demo)

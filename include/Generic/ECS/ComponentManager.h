@@ -25,11 +25,36 @@ namespace Generic {
 		static void registerComponentType() {
 			assertNoAbort([]()->bool {return std::is_base_of<Component, T>::value; }, 
 				"ComponentManager :: registerComponentType :: " + GRTTI::typeName<T>() + " doesnt inherit from Component");
-			componentTypeSizes[GRTTI::typeId<T>()] = sizeof(T);
-			poolAllocators[GRTTI::typeId<T>()] = std::make_unique<PoolAllocatorTemplate<T>>();
+			componentTypeSizes[GRTTI::_typeId<T>()] = sizeof(T);
+			poolAllocators[GRTTI::_typeId<T>()] = std::make_unique<PoolAllocatorTemplate<T>>();
 		}
 
-		static Component* getComponent(int entityTypeId, int componentTypeId) {
+		template <typename T>
+		static Component* getComponentWithArgs(const int& entityTypeId, T &&arg) noexcept {
+			assertNoAbort([&entityTypeId]()->bool {return poolAllocators.find(GRTTI::_typeId<T>()) != poolAllocators.end(); }, "ComponentManager :: getComponent :: "
+				+ GRTTI::typeName<T>() + " is not part of this entityType");
+			if (poolAllocators.find(GRTTI::_typeId<T>()) == poolAllocators.end())
+				return nullptr;
+			assertNoAbort([&entityTypeId]()->bool {return !poolAllocators[GRTTI::_typeId<T>()]->isEmpty(); }, "ComponentManager :: getComponent :: pool empty,"
+				" ensure ComponentManager::alloc is called right after all component types registrations");
+			Component* c = poolAllocators[GRTTI::_typeId<T>()]->getComponentWithArg(entityTypeId, std::move(arg));
+			c->reset();
+			return c;
+		}
+
+		static Component* getComponentWithArg(const int& entityTypeId, int componentTypeId, Component&& arg) noexcept {
+			assertNoAbort([&, entityTypeId, componentTypeId]()->bool {return poolAllocators.find(componentTypeId) != poolAllocators.end(); }, 
+				"ComponentManager :: getComponent with arg :: this compoennt type is not part of this entityType");
+			if (poolAllocators.find(componentTypeId) == poolAllocators.end())
+				return nullptr;
+			assertNoAbort([&, entityTypeId, componentTypeId]()->bool {return !poolAllocators[componentTypeId]->isEmpty(); }, "ComponentManager :: getComponent :: pool empty,"
+				" ensure ComponentManager::alloc is called right after all component types registrations");
+			Component* c = poolAllocators[componentTypeId]->getComponentWithArg(entityTypeId, std::move(arg));
+			c->reset();
+			return c;
+		}
+
+		static Component* getComponent(const int& entityTypeId, const int& componentTypeId) {
 			assert(!poolAllocators[componentTypeId]->isEmpty() && "ComponentManager :: getComponent :: pool empty,"
 			" ensure ComponentManager::alloc is called right after all component types registrations");
 			Component* c = poolAllocators[componentTypeId]->getComponent(entityTypeId);
@@ -37,15 +62,16 @@ namespace Generic {
 			return c;
 		}
 
-		static void returnComponent(int entityTypeId, int componentTypeId, Component* c) {
+		static void returnComponent(const int& entityTypeId, const int& componentTypeId, Component* c) {
 			poolAllocators[componentTypeId]->returnComponent(entityTypeId, c);
 		}
 
-		static void returnComponentWithCopy(int entityTypeId, int componentTypeId, Component* c) {
+		static void returnComponentWithCopy(const int& entityTypeId, const int& componentTypeId, Component* c) {
 			poolAllocators[componentTypeId]->returnComponentWithCopy(entityTypeId, c);
 		}
 
 		static std::unordered_map<int, int> componentTypeSizes;
+		static std::unordered_map<int, std::string> componentTypeNames;
 
 	private:
 		static int componentTypeIDCount;

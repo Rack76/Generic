@@ -57,5 +57,10 @@ int Generic::NameAllocator::lastNameReserved()
 {
     if (allocatedNames.size() == 0)
         return -1;
-    return (std::prev(allocatedNames.end())->first)->first;
+    return std::prev(allocatedNames.end())->first;
+}
+
+std::unordered_map<int, int>& Generic::NameAllocator::data()
+{
+    return allocatedNames;
 }
