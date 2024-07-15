@@ -1,0 +1,8 @@
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/GameEngine/CMakeFiles/GameEngine.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/GameEngine/CMakeFiles/edit_cache.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/GameEngine/CMakeFiles/rebuild_cache.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/TestProject/CMakeFiles/Test.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/TestProject/CMakeFiles/edit_cache.dir
+C:/Users/rgter/source/repos/GameEngine/out/build/x64-debug/TestProject/CMakeFiles/rebuild_cache.dir
