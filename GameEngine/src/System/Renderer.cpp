@@ -1,7 +1,7 @@
 #include "GL/glew.h"
 #include "GameEngine/System/Renderer.h"
 
-namespace gen
+namespace Gen
 {
 	void Renderer::init()
 	{
