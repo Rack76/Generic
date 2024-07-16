@@ -16,8 +16,8 @@ namespace Gen
 		}
 
 	protected:
-		Singleton<T>();
-		Singleton<T>(const Singleton<T>&);
+		Singleton<T>() = default;
+		Singleton<T>(const Singleton<T>&) = default;
 	};
 }
 

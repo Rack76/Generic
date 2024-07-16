@@ -6,18 +6,18 @@ namespace Gen
 {
 	void Core::init()
 	{
-		window->init();
+		/*window->init();
 		input->init();
-		renderer->init();
+		renderer->init();*/
 	}
 
 	void Core::run()
 	{
-		while (!window->shouldClose())
+	/*	while (!window->shouldClose())
 		{
 			window->update();
 			input->run();
 			renderer->run();
-		}
+		}*/
 	}
 }

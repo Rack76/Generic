@@ -1,15 +1,16 @@
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
-    "builtin-baseline": "3f530d4827b064f5894e94a8946473d40999826e",
-    "dependencies": [
-        "glfw3",
-        {
-            "name": "glad",
-            "default-features": true,
-            "features": [
-                "gl-api-33"
-            ]
-        },
-        "glm"
-    ]
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "builtin-baseline": "3f530d4827b064f5894e94a8946473d40999826e",
+  "dependencies": [
+    "glfw3",
+    {
+      "name": "glad",
+      "default-features": true,
+      "features": [
+        "gl-api-33"
+      ]
+    },
+    "glm",
+    "fmt"
+  ]
 }
