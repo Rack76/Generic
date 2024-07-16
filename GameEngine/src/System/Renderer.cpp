@@ -1,11 +1,14 @@
 #include "glad/glad.h"
 #include "GameEngine/System/Renderer.h"
+#include "GameEngine/util/Logger.h"
 
 namespace Gen
 {
 	void Renderer::init()
 	{
-		gladLoadGL();
+		Logger logger("Renderer");
+		if(!gladLoadGL())
+			logger.error("glad initialzation failed : did you init glfw before ?");
 	}
 
 	void Renderer::run()

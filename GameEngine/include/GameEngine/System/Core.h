@@ -11,15 +11,6 @@ namespace Gen
 	class Core : public Singleton<Core>
 	{
 	public:
-		template <
-			typename _Window,
-			typename _Input,
-			typename _Renderer>
-		Core() {
-			window = _Window::getInstance();
-			input = _Input::getInstance();
-			renderer = _Renderer::getInstance();
-		}
 		virtual void init();
 		virtual void run();
 
