@@ -3,19 +3,22 @@
 
 #include <memory>
 
-template <typename T>
-class Singleton
+namespace Gen
 {
-public:
-	static T* getInstance()
+	template <typename T>
+	class Singleton
 	{
-		static std::unique_ptr<T> instance = std::make_unique<T>();
-		return instance.get();
-	}
+	public:
+		static T* getInstance()
+		{
+			static std::unique_ptr<T> instance = std::make_unique<T>();
+			return instance.get();
+		}
 
-protected:
-	Singleton<T>();
-	Singleton<T>(const Singleton<T>&);
-};
+	protected:
+		Singleton<T>();
+		Singleton<T>(const Singleton<T>&);
+	};
+}
 
 #endif 
