@@ -1,5 +1,6 @@
 #include "GameEngine/util/Tree.h"
 #include "GameEngine/util/Logger.h"
+#include "GameEngine/System/Core.h"
 
 int main()
 {
@@ -16,4 +17,7 @@ int main()
 	logger.error("Hello world!");
 	logger.critical("Hello world!");
 	logger.debug("Hello world!");
+
+	Gen::Core::getInstance()->init();
+	Gen::Core::getInstance()->run();
 }

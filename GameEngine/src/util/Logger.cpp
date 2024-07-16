@@ -1,5 +1,6 @@
 #include "GameEngine/util/Logger.h"
 #include "GameEngine/util/Singleton.h"
+#include <thread>
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
