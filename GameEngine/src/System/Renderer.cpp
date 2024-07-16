@@ -1,11 +1,11 @@
-#include "GL/glew.h"
+#include "glad/glad.h"
 #include "GameEngine/System/Renderer.h"
 
 namespace Gen
 {
 	void Renderer::init()
 	{
-		glewInit();
+		gladLoadGL();
 	}
 
 	void Renderer::run()

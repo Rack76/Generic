@@ -1,5 +1,5 @@
 #ifndef SINGLETON_H
-#define SINGETON_H
+#define SINGLETON_H
 
 #include <memory>
 
