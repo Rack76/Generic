@@ -14,7 +14,7 @@ add_library(GameEngine ${SOURCES})
 
 set_property(TARGET GameEngine PROPERTY CXX_STANDARD 20)
 
-target_include_directories(GameEngine PRIVATE include)
+target_include_directories(GameEngine PRIVATE include ${glad_INCLUDE_DIRS})
 
 target_link_libraries(GameEngine PRIVATE glfw glad::glad)
 target_link_libraries(GameEngine PUBLIC glm::glm )
