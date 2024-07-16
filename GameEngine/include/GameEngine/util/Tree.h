@@ -11,27 +11,32 @@ template <typename ContainerType>
 class Tree
 {
 public:
-
+	
 	template <typename ElementType, typename ...Integers>
 	void addNode( ElementType &&element,  Integers &&...keys)
 	{
 		if constexpr (std::is_same<ContainerType, ElementType>::value)
 		{
-			addNodeRecurse([](ContainerType& container, const ElementType&& element) {container = element; },
+			addNodeRecurse(std::function<void(ContainerType&, ElementType &&)>(
+				[](ContainerType& container, ElementType&& _element) {container = _element; }
+			),
 				std::move(element),
 				std::move(keys)...);
 		}
-		else 
+		else if constexpr(std::is_same<ContainerType, std::vector<ElementType>>::value)
 		{
-			addNodeRecurse([](ContainerType& container, const ElementType&& element) {container.push_back(element); },
+			addNodeRecurse(std::function<void(ContainerType&, ElementType&&)>(
+				[](ContainerType& container, ElementType&& _element) {container.push_back(_element); }
+			),
 				std::move(element),
 				std::move(keys)...);
 		}
 	}
 
+private:
 	template <typename ElementType, typename Integer, typename ...Integers>
 	void addNodeRecurse(
-		 std::function<void(ContainerType& container, const ElementType &&element)> insertProc,
+		 std::function<void(ContainerType& container, ElementType &&element)> &&insertProc,
 		 ElementType&& element, 
 		 Integer &&key,
 		 Integers &&...keys)
@@ -43,10 +48,10 @@ public:
 		else
 			edges[key].addNodeRecurse(
 				std::move(insertProc),
+				std::move(element),
 				std::move(keys)...);
 	}
 
-private:
 	ContainerType container;
 	std::unordered_map<int, Tree<ContainerType>> edges;
 };
