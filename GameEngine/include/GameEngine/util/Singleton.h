@@ -10,7 +10,7 @@ public:
 	static T* getInstance()
 	{
 		static std::unique_ptr<T> instance = std::make_unique<T>();
-		return instance;
+		return instance.get();
 	}
 
 protected:
