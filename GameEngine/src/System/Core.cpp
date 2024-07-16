@@ -1,5 +1,5 @@
 #include "GameEngine/System/Core.h"
-
+/*
 namespace Gen
 {
 	void Core::init()
@@ -18,4 +18,4 @@ namespace Gen
 			renderer->run();
 		}
 	}
-}
+}*/

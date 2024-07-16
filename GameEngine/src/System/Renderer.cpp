@@ -1,15 +1,15 @@
-#include "GL/glew.h"
+//#include "GL/glew.h"
 #include "GameEngine/System/Renderer.h"
 
-namespace gen
+namespace Gen
 {
 	void Renderer::init()
 	{
-		glewInit();
+		//glewInit();
 	}
 
 	void Renderer::run()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT);
 	}
 }
