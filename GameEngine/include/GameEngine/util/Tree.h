@@ -13,45 +13,47 @@ namespace Gen
 	class Tree
 	{
 	public:
-
-		template <typename ElementType, typename ...Integers>
-		void addNode(ElementType&& element, Integers &&...keys)
+		template <typename ElementType>
+		void addNode(const ElementType& element, std::vector<int> &&keys)
 		{
 			if constexpr (std::is_same<ContainerType, ElementType>::value)
 			{
-				addNodeRecurse(std::function<void(ContainerType&, ElementType&&)>(
-					[](ContainerType& container, ElementType&& _element) {container = _element; }
+				addNodeRecurse(std::function<void(ContainerType&, const ElementType&)>(
+					[](ContainerType& container, const ElementType& _element) {container = _element; }
 				),
-					std::move(element),
-					std::move(keys)...);
+					element,
+					keys);
 			}
 			else if constexpr (std::is_same<ContainerType, std::vector<ElementType>>::value)
 			{
-				addNodeRecurse(std::function<void(ContainerType&, ElementType&&)>(
-					[](ContainerType& container, ElementType&& _element) {container.push_back(_element); }
+				addNodeRecurse(std::function<void(ContainerType&, const ElementType&)>(
+					[](ContainerType& container, const ElementType& _element) {container.push_back(_element); }
 				),
-					std::move(element),
-					std::move(keys)...);
+				    element,
+					keys);
 			}
 		}
 
 	private:
-		template <typename ElementType, typename Integer, typename ...Integers>
+		template <typename ElementType>
 		void addNodeRecurse(
-			std::function<void(ContainerType& container, ElementType&& element)>&& insertProc,
-			ElementType&& element,
-			Integer&& key,
-			Integers &&...keys)
+			const std::function<void(ContainerType& container, const ElementType& element)>& insertProc,
+			const ElementType& element,
+			std::vector<int> &keys)
 		{
-			if constexpr (sizeof...(Integers) == 0)
+			if (keys.size() == 0)
 			{
-				insertProc(edges[key].container, std::move(element));
+				insertProc(container, element);
 			}
 			else
+			{
+				int key = keys[keys.size() - 1];
+				keys.pop_back();
 				edges[key].addNodeRecurse(
-					std::move(insertProc),
-					std::move(element),
-					std::move(keys)...);
+					insertProc,
+					element,
+					keys);
+			}
 		}
 
 		ContainerType container;
