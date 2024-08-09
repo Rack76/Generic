@@ -50,7 +50,7 @@ namespace Gen
         return returnValue;
     }
 
-    std::vector<int> mergeSort(const std::vector<int>&& _elements)
+    std::vector<int> mergeSort(const std::vector<int>& _elements)
     {
         std::vector<int> elements = _elements;
 

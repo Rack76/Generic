@@ -5,19 +5,17 @@
 # Ajoutez une source à l'exécutable de ce projet.
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
+file(GLOB_RECURSE LIBS "lib/*.lib")
 
-find_package(fmt CONFIG REQUIRED)
-find_package(glm CONFIG REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
-find_package(glad CONFIG REQUIRED)
+add_compile_definitions(GLEW_STATIC)
 
-add_library(GameEngine ${SOURCES})
+add_library(GameEngine ${SOURCES} ${HEADERS})
 
 set_property(TARGET GameEngine PROPERTY CXX_STANDARD 20)
 
-target_include_directories(GameEngine PRIVATE include ${glad_INCLUDE_DIRS})
+target_include_directories(GameEngine PRIVATE include)
 
-target_link_libraries(GameEngine PRIVATE glfw glad::glad)
-target_link_libraries(GameEngine PUBLIC glm::glm fmt::fmt-header-only)
+target_link_libraries(GameEngine PRIVATE ${LIBS})
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
