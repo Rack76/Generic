@@ -78,9 +78,9 @@ void keyCallback(int key, int action)
 	}
 }
 
-void cursorCallback(double x, double y)
+void cursorCallback(double x, double y, float dt)
 {
-	runActions(MOUSE_MOTION, std::make_tuple(x, y));
+	runActions(MOUSE_MOTION, std::make_tuple(x, y, dt));
 }
 
 namespace Gen
@@ -89,10 +89,12 @@ namespace Gen
 	{
 		Window::getInstance()->setCursorCallback(cursorCallback);
 		Window::getInstance()->setKeyCallback(keyCallback);
+		Window::getInstance()->setDT(&dt);
 	}
 
-	void Input::run()
+	void Input::run(float _dt)
 	{
+		dt = _dt;
 		Window::getInstance()->pollEvents();
 	}
 }

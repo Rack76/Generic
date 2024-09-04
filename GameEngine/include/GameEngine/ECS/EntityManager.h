@@ -51,8 +51,8 @@ namespace Gen
         }
 
         static std::vector<Archetype*>
-        getArchetypesWith(const std::vector<int>&& include,
-                          const std::vector<int>&& exclude = {})
+        getArchetypesWith(const std::set<int>&& include,
+                          const std::set<int>&& exclude = {})
         {
             return groups[activeGroup].getArchetypesWith(include, exclude);
         }

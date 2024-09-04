@@ -10,7 +10,10 @@ namespace Gen
 	{
 	public:
 		void init();
-		void run();
+		void run(float dt);
+
+	private:
+		float dt = 0;
 	};
 }
 

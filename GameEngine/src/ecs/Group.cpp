@@ -1,4 +1,5 @@
 #include "GameEngine/ecs/Group.h"
+#include <algorithm>
 
 namespace Gen
 {
@@ -24,37 +25,18 @@ namespace Gen
 		entities.erase(entityId);
 	}
 
-	std::vector<Archetype*> Group::getArchetypesWith(const std::vector<int> &include, const std::vector<int> &exclude)
+	std::vector<Archetype*> Group::getArchetypesWith(const std::set<int> &include, const std::set<int> &exclude)
 	{
-		std::vector<int> signature = mergeSort(std::move(include));
-		std::vector<int> archetypeIds;
+		std::vector<Archetype*> returnValue;
 
 		int typeId;
-		typeIdTree.getElement(typeId, signature);
+		if (!entityTypeExists(include))
+			typeId = addEntityType(std::move(include));
+		else
+			typeId = getTypeId(include);
 
-		std::unordered_map<int, int> excludeMap;
-		for (const int& id : exclude)
-		{
-			excludeMap.insert({id, id});
-		}
-		superTypeIdsTree.getElements(archetypeIds, signature, excludeMap);
-		std::vector<Archetype*> returnValue;
-		if(typeId != -1)
-			returnValue.push_back(&archetypes[typeId]);
-		for (int& id : archetypeIds)
-		{
-			bool componentTypeIdFound = false;
-			for (const int& componentTypeId : archetypes[id].signature)
-			{
-				if (excludeMap.find(componentTypeId) != excludeMap.end())
-				{
-					componentTypeIdFound = true;
-					break;
-				}
-			}
-			if(!componentTypeIdFound)
-				returnValue.push_back(&archetypes[id]);
-		}
+		archetypes[typeId].getSuperArchetypes(returnValue, exclude);
+		
 		return returnValue;
 	}
 }

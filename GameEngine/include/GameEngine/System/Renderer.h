@@ -17,7 +17,7 @@ namespace Gen
 	{
 	public:
 		void init();
-		void run();
+		void run(float dt);
 
 		class BufferArray
 		{

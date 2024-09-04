@@ -4,16 +4,20 @@
 #include <string>
 #include "GameEngine/Util/AssetManager.h"
 #include "GameEngine/Util/Util.h"
+#include "GameEngine/ECS/EntityManager.h"
 #include "GameEngine/ECS/Component.h"
+#include "GameEngine/component/Transform.h"
+#include "glm/gtc/matrix_access.hpp"
 
 namespace Gen
 {
 	class Mesh : public Component
 	{
 	public:
-		Mesh()
+		void onCreation()
 		{
-
+			if (!EntityManager::hasComponent<Transform>(entityId))
+				EntityManager::addComponents(entityId, Transform{});
 		}
 
 		void setMesh(std::string&& name)
@@ -47,6 +51,14 @@ namespace Gen
 		{
 			assertNoAbort(shaderProgramSet, "shader program not set");
 			return shaderProgram;
+		}
+
+		void update()
+		{
+			Transform* transform = EntityManager::getComponent<Transform>(entityId);
+			glm::mat4 model = glm::mat4(transform->orientation);
+			model = glm::row(model, 3, glm::vec4(transform->translation, 1.0));
+			AssetManager::Shader::setUniform("model", &model[0][0]);
 		}
 
 	private:

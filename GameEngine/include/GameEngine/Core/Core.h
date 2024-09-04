@@ -5,6 +5,8 @@ class Window;
 class Input;
 class Renderer;
 
+#include "GameEngine/Util/Clock.h"
+
 namespace Gen
 {
 	class Core
@@ -17,6 +19,7 @@ namespace Gen
 		static Window *window;
 		static Input *input;
 		static Renderer *renderer;
+		static Clock clock;
 	};
 }
 

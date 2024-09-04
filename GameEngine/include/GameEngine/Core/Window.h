@@ -13,7 +13,8 @@ namespace Gen
 		~Window();
 
 		void setKeyCallback(void (*f)(int, int));
-		void setCursorCallback(void (*f)(double, double));
+		void setCursorCallback(void (*f)(double, double, float));
+		void setDT(float *dt);
 		void close();
 		bool shouldClose();
 		void update();

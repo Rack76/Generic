@@ -30,6 +30,7 @@ namespace Gen
 		public:
 			static void loadShaderProgram(std::string &&name, const char* vertexShaderPath, const char* fragmentShaderPath);
 			static uint32_t getShaderProgram(std::string& name);
+			static void setUniform(int &programName, const char* uniformName, const float* value);
 			static void setUniform(const char* uniformName, const float* value);
 
 		private:

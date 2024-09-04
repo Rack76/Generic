@@ -45,6 +45,8 @@ namespace Gen
 
 				int vertexCount = entity.get<Mesh>()->getVertexCount();
 
+				entity.get<Mesh>()->update();
+
 				glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 			},
 			{ RTTI::typeId<Mesh>(), RTTI::typeId<Gen::Texture>()});
@@ -55,11 +57,11 @@ namespace Gen
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	void Renderer::run()
+	void Renderer::run(float dt)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if(Camera::getActiveCamera())
-			Camera::getActiveCamera()->update();
+			Camera::getActiveCamera()->update(dt);
 		runEntityProcs();
 	}
 

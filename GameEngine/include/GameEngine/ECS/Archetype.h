@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <set>
 
 #include "ComponentManager.h"
 #include "GameEngine/Util/NameAllocator.h"
@@ -36,7 +37,7 @@ namespace Gen
         {
         }
 
-        Archetype(const std::vector<int>& signature, const int& id)
+        Archetype(const std::set<int>& signature, const int& id)
             : signature(signature),
               componentTypeCount(signature.size()),
               id(id),
@@ -98,8 +99,26 @@ namespace Gen
 
         void iterateEntities(const std::function<void(Entity&&)>& f);
 
-        const std::vector<int> signature;
+        void getSuperArchetypes(std::vector<Archetype*> &archetypes, const std::set<int> &exclude)
+        {
+            for (auto pair : superArchetypes)
+            {
+                Archetype* archetype = pair.second;
+                for (const int& componentTypeId : exclude)
+                {
+                    if (archetype->signature.find(componentTypeId) != archetype->signature.end())
+                        goto end;
+                }
+                archetypes.push_back(archetype);
+            end:
+                continue;
+            }
+        }
+
+        std::unordered_map<int, Archetype*> superArchetypes;
+        const std::set<int> signature;
         const int id;
+
         std::unordered_map<int, std::unordered_map<int, Component*>> entities;
 
     private:
