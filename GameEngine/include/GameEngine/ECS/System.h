@@ -21,8 +21,8 @@ namespace Gen
         }
 
         void addEntityProc(int procName, std::function<void(Entity &&)> f,
-                           std::vector<int> included,
-                           std::vector<int> excluded = {})
+                           std::set<int> included,
+                           std::set<int> excluded = {})
         {
             entityProcs.insert({procName, [f, included, excluded]() 
                 {

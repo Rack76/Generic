@@ -128,16 +128,17 @@ namespace Action
 		}
 	}
 
-	void rotateDebugCamera(std::any data, int entityId)
+	void rotateDebugCamera(std::any tuple, int entityId)
 	{
 		Gen::assertNoAbort(Gen::EntityManager::hasComponent<Gen::Camera>(entityId), "no camera component attached to entity " + std::to_string(entityId));
 		Gen::Camera* camera = Gen::EntityManager::getComponent<Gen::Camera>(entityId);
 		Gen::Transform* transform = Gen::EntityManager::getComponent<Gen::Transform>(entityId);
-		std::tuple<double, double> cursorMotion = std::any_cast<std::tuple<double, double>>(data);
-		float xMotion = std::get<0>(cursorMotion);
-		float yMotion = std::get<1>(cursorMotion);
+		std::tuple<double, double, float> data = std::any_cast<std::tuple<double, double, float>>(tuple);
+		float xMotion = std::get<0>(data);
+		float yMotion = std::get<1>(data);
+		float dt = std::get<2>(data);
 		xMotion *= 0.001;
 		yMotion *= 0.001;
-		camera->rotateCamera(xMotion, yMotion);
+		camera->rotateCamera(xMotion, yMotion, dt);
 	}
 }

@@ -59,6 +59,11 @@ namespace Gen
 		return shaderPrograms[name];
 	}
 
+	void AssetManager::Shader::setUniform(int &programName, const char* uniformName, const float* value)
+	{
+		Renderer::Shader::setUniform(programName, uniformName, value);
+	}
+
 	void AssetManager::Shader::setUniform(const char* uniformName, const float *value)
 	{
 		for (auto pair : shaderPrograms)

@@ -19,9 +19,9 @@ namespace Gen
 		assertNoAbort(entities.find(entityLocalId) != entities.end(), "Group:::removeEntity : cant remove entity : "
 			"entity not found");
 
-		for (int i = 0; i < signature.size(); i++)
+		for (const int &componentTypeId : signature)
 		{
-			ComponentManager::returnComponent(signature[i], id, entities[entityLocalId][signature[i]]);
+			ComponentManager::returnComponent(componentTypeId, id, entities[entityLocalId][componentTypeId]);
 		}
 		entityIdsAllocator.returnName(entityLocalId);
 		entities.erase(entityLocalId);
@@ -29,9 +29,9 @@ namespace Gen
 
 	void Archetype::removeEntity(int& entityLocalId, std::unordered_map<int, Component*>& components)
 	{
-		for (int i = 0; i < signature.size(); i++)
+		for (const int &componentTypeId : signature)
 		{
-			components.insert({ signature[i],  entities[entityLocalId][signature[i]] });
+			components.insert({ componentTypeId,  entities[entityLocalId][componentTypeId] });
 		}
 		removeEntity(entityLocalId);
 	}

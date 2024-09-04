@@ -20,7 +20,7 @@ namespace Gen
         {
             int        entityId     = entityIdAllocator.getName();
             static int entityTypeId = addEntityType(
-                std::vector<int>{RTTI::typeId<ComponentType>(),
+                std::set<int>{RTTI::typeId<ComponentType>(),
                                  RTTI::typeId<ComponentTypes>()...});
             entities[entityId].first = entityTypeId;
             int entityLocalId =
@@ -55,16 +55,16 @@ namespace Gen
         template <typename... ComponentTypes>
         void addComponents(int& entityId, ComponentTypes&... components)
         {
-            std::vector<int> signature =
-                mergeSort(std::vector<int>{RTTI::typeId<ComponentTypes>()...});
+            std::set<int> signature = {RTTI::typeId<ComponentTypes>()...};
             int              srcArchetype  = entities[entityId].first;
-            std::vector<int> srcSignature  = archetypes[srcArchetype].signature;
-            std::vector<int> destSignature = merge(srcSignature, signature);
-            int              element;
-            typeIdTree.getElement(element, destSignature);
-            int destArchetype = element;
-            if (element == -1)
+            std::set<int> srcSignature  = archetypes[srcArchetype].signature;
+            srcSignature.merge(signature);
+            std::set<int> &destSignature = srcSignature;
+            int destArchetype;
+            if (!entityTypeExists(destSignature))
                 destArchetype = addEntityType(std::move(destSignature));
+            else
+                destArchetype = getTypeId(destSignature);
 
             transferEntity(archetypes[destArchetype], archetypes[srcArchetype],
                            entityId);
@@ -76,38 +76,26 @@ namespace Gen
         template <typename... ComponentTypes>
         void removeComponents(int& entityId)
         {
-            std::vector<int> signature =
-                mergeSort(std::vector<int>{RTTI::typeId<ComponentTypes>()...});
+            std::set<int> signature ={RTTI::typeId<ComponentTypes>()...};
             int              srcArchetype = entities[entityId].first;
-            std::vector<int> srcSignature = archetypes[srcArchetype].signature;
-            std::vector<std::pair<int, int>> destSignatureInit;
-            for (int& id : signature)
+            std::set<int> srcSignature = archetypes[srcArchetype].signature;
+            std::unordered_map<int, int> signatureMap;
+            for (const int& componentTypeId : signature)
             {
-                srcSignature.push_back(id);
+                signatureMap.insert({ componentTypeId, 0 });
             }
-            for (int& id : srcSignature)
+            std::set<int> destSignature;
+            for (const int& componentTypeId : srcSignature)
             {
-                destSignatureInit.push_back(std::make_pair(id, id));
-            }
-            std::unordered_map<int, int> destSignatureMap =
-                std::unordered_map<int, int>(destSignatureInit.begin(),
-                                             destSignatureInit.end());
-            for (int& id : signature)
-            {
-                destSignatureMap.erase(id);
-            }
-            std::vector<int> destSignature;
-            for (auto it = destSignatureMap.begin();
-                 it != destSignatureMap.end(); it++)
-            {
-                destSignature.push_back(it->first);
+                if (signatureMap.find(componentTypeId) == signatureMap.end())
+                    destSignature.insert(componentTypeId);
             }
 
-            int element;
-            typeIdTree.getElement(element, destSignature);
-            int destArchetype = element;
-            if (element == -1)
+            int destArchetype;
+            if (!entityTypeExists(destSignature))
                 destArchetype = addEntityType(std::move(destSignature));
+            else
+                destArchetype = getTypeId(destSignature);
 
             std::unordered_map<int, Component*> components;
             archetypes[srcArchetype].removeEntity(entityId, components);
@@ -120,8 +108,8 @@ namespace Gen
         }
 
         std::vector<Archetype*>
-        getArchetypesWith(const std::vector<int>& include,
-                          const std::vector<int>& exclude);
+        getArchetypesWith(const std::set<int>& include,
+                          const std::set<int>& exclude);
 
     private:
         template <typename ComponentType, typename ...ComponentTypes>
@@ -132,26 +120,44 @@ namespace Gen
                 initComponents(components...);
         }
 
-        int addEntityType(const std::vector<int>&& signature)
+        int addEntityType(const std::set<int>&& signature)
         {
-            auto sortedSignature = mergeSort(signature);
-            int  typeId          = getTypeId(sortedSignature);
-            typeIdTree.addNode(typeId, sortedSignature);
-            archetypes.insert({typeId, Archetype(sortedSignature, typeId)});
-            for (const int& id : sortedSignature)
+            int  typeId          = getTypeId(signature);
+            archetypes.insert({typeId, Archetype(signature, typeId)});
+            std::unordered_map<int, int> browsedArchetypes;
+            for (const int& componentTypeId : signature)
             {
-                std::vector<int> subEntityTypeSignature;
-                for (int i = 0; i < sortedSignature.size(); i++)
+                archetypeIdsByComponentType[componentTypeId][typeId] = typeId;
+            }
+            for (const int& componentTypeId : signature)
+            {
+                for (auto& pair : archetypeIdsByComponentType[componentTypeId])
                 {
-                    if (sortedSignature[i] != id)
-                        subEntityTypeSignature.push_back(sortedSignature[i]);
+                    if (browsedArchetypes.find(pair.second) == browsedArchetypes.end())
+                    {
+                        Archetype& archetype = archetypes[pair.second];
+                        if (std::includes(
+                            archetype.signature.begin(), archetype.signature.end(),
+                            signature.begin(), signature.end()))
+                            archetypes[typeId].superArchetypes[pair.first] = &archetype;
+                        else if (std::includes(
+                            signature.begin(), signature.end(),
+                            archetype.signature.begin(), archetype.signature.end()))
+                            archetypes[pair.first].superArchetypes[typeId] = &archetypes[typeId];
+
+                        browsedArchetypes[pair.second];
+                    }
                 }
-                superTypeIdsTree.addNode(typeId, subEntityTypeSignature);
             }
             return typeId;
         }
 
-        int getTypeId(const std::vector<int>& signature)
+        bool entityTypeExists(const std::set<int>& signature)
+        {
+            return typeIds.find(signature) != typeIds.end();
+        }
+
+        int getTypeId(const std::set<int>& signature)
         {
             if (typeIds.find(signature) == typeIds.end())
             {
@@ -163,10 +169,9 @@ namespace Gen
 
         void transferEntity(Archetype& dest, Archetype& src, int& entityId);
 
-        std::map<std::vector<int>, int>    typeIds;
-        Tree<int>                          typeIdTree;
-        Tree<std::vector<int>>             superTypeIdsTree;
+        std::map<std::set<int>, int>    typeIds;
         int                                entityTypeCount = 0;
+        std::unordered_map<int, std::unordered_map<int, int>> archetypeIdsByComponentType;
         std::unordered_map<int, Archetype> archetypes;
         NameAllocator entityIdAllocator = NameAllocator(10);
         std::unordered_map<int, std::pair<int, int>> entities;
