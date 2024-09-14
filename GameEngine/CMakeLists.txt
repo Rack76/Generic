@@ -8,13 +8,13 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "include/*.h")
 file(GLOB_RECURSE LIBS "lib/*.lib")
 
-add_compile_definitions(GLEW_STATIC)
-
 add_library(GameEngine ${SOURCES} ${HEADERS})
 
 set_property(TARGET GameEngine PROPERTY CXX_STANDARD 20)
 
 target_include_directories(GameEngine PRIVATE include)
+
+add_compile_definitions(GLEW_STATIC)
 
 target_link_libraries(GameEngine PRIVATE ${LIBS})
 
