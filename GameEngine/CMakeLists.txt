@@ -10,7 +10,7 @@ file(GLOB_RECURSE LIBS "lib/*.lib")
 
 add_library(GameEngine ${SOURCES} ${HEADERS})
 
-set_property(TARGET GameEngine PROPERTY CXX_STANDARD 20)
+set_property(TARGET GameEngine PROPERTY CXX_STANDARD 17)
 
 target_include_directories(GameEngine PRIVATE include)
 

@@ -9,7 +9,7 @@ namespace Gen
 	class Parser
 	{
 	public:
-		static void getModelData(const char* filepath, std::vector<float>& positions, std::vector<float>& texCoords);
+		static void getModelData(const char* filepath, std::vector<float>& positions, std::vector<float>& texCoords, std::vector<float>& vertices);
 		static std::string readFile(const char* filepath);
 
 	private:

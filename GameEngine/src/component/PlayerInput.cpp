@@ -7,7 +7,7 @@ namespace Gen
 		actions[trigger].push_back(action);
 	}
 
-	void PlayerInput::runActions(int trigger, std::any data = 0)
+	void PlayerInput::runActions(int trigger, std::any data)
 	{
 		if (actions.find(trigger) == actions.end())
 			return;
