@@ -5,7 +5,7 @@
 
 namespace Gen
 {
-	void Parser::getModelData(const char* filepath, std::vector<float>& positions, std::vector<float>& texCoords)
+	void Parser::getModelData(const char* filepath, std::vector<float>& triangles, std::vector<float>& texCoords, std::vector<float>& vertices)
 	{
 		std::string geometryId;
 		std::string positionsString;
@@ -25,7 +25,7 @@ namespace Gen
 		while (!ss.eof())
 		{
 			ss >> position;
-			positions.push_back(position);
+			vertices.push_back(position);
 		}
 
 		extractLineContent(file, texCoordsString, std::string(geometryId + "-map-0-array").c_str(), ">", "<");
@@ -51,7 +51,8 @@ namespace Gen
 			textureIndices.push_back(index);
 		}
 
-		orderArray(positions, positionIndices, 3);
+		triangles = vertices;
+		orderArray(triangles, positionIndices, 3);
 		orderArray(texCoords, textureIndices, 2);
 	}
 

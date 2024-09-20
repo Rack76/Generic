@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Generic" />
+		<Option makefile_is_custom="1" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="CMake Files/;CMake Files/GameEngine/;CMake Files/TestProject/" />
+		<Build>
+			<Target title="all">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 all' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 edit_cache' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 rebuild_cache' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="GameEngine">
+				<Option output="C:/Users/rgter/source/repos/GameEngine/build/GameEngine/libGameEngine.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="./" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DGLEW_STATIC" />
+					<Add directory="C:/Users/rgter/source/repos/GameEngine/GameEngine/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/mingw32" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/backward" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include-fixed" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 GameEngine' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="GameEngine/fast">
+				<Option output="C:/Users/rgter/source/repos/GameEngine/build/GameEngine/libGameEngine.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="./" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DGLEW_STATIC" />
+					<Add directory="C:/Users/rgter/source/repos/GameEngine/GameEngine/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/mingw32" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/backward" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include-fixed" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 GameEngine/fast' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/GameEngine/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Test">
+				<Option output="C:/Users/rgter/source/repos/GameEngine/build/TestProject/Test.exe" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="C:/Users/rgter/source/repos/GameEngine/build/TestProject" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="C:/Users/rgter/source/repos/GameEngine/TestProject/../GameEngine/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/mingw32" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/backward" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include-fixed" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 Test' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Test/fast">
+				<Option output="C:/Users/rgter/source/repos/GameEngine/build/TestProject/Test.exe" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="C:/Users/rgter/source/repos/GameEngine/build/TestProject" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="C:/Users/rgter/source/repos/GameEngine/TestProject/../GameEngine/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/mingw32" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include/c++/backward" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../include" />
+					<Add directory="c:/mingw/bin/../lib/gcc/mingw32/6.3.0/include-fixed" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 Test/fast' />
+					<CompileFile command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/rgter/source/repos/GameEngine/build/TestProject/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="../CMakeLists.txt">
+			<Option compile="1" />
+			<Option virtualFolder="CMake Files/" />
+		</Unit>
+		<Unit filename="../GameEngine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/GameEngine/" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GLFW/glfw3.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GLFW/glfw3native.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GL/eglew.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GL/glew.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GL/glxew.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GL/wglew.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Core/Core.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Core/File.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Core/Window.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/Archetype.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/Component.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/ComponentManager.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/EntityManager.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/Group.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/PoolAllocator.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/ECS/System.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/System/Input.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/System/Physics/Particle.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/System/Physics/Physics.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/System/Renderer.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/AssetManager.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/Clock.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/Logger.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/NameAllocator.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/Parser.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/RTTI.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/Singleton.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/Tree.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/Util/Util.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/action/Actions.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/component/Camera.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/component/Mesh.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/component/PlayerInput.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/component/RigidBody.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/component/Texture.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/component/Transform.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/enum/EntityProcInput.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/enum/EntityProcRenderer.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/GameEngine/enum/InputEnum.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/common.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/exponential.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/geometric.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/integer.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/matrix.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/neon.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/packing.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/platform.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/trigonometric.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/glm/simd/vector_relational.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/include/stb_image/stb_image.h">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/GameEngine.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/System/Core.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/System/Input.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/System/Physics/Particle.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/System/Physics/Physics.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/System/Renderer.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/action/Actions.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/component/Camera.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/component/PlayerInput.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/component/Transrform.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/core/File.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/core/Window.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/ecs/Archetype.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/ecs/ComponentManager.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/ecs/EntityManager.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/ecs/Group.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/ecs/PoolAllocator.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/util/AssetManager.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/util/NameAllocator.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/util/Parser.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/util/RTTI.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../GameEngine/src/util/Util.cpp">
+			<Option target="GameEngine" />
+		</Unit>
+		<Unit filename="../TestProject/CMakeLists.txt">
+			<Option virtualFolder="CMake Files/TestProject/" />
+		</Unit>
+		<Unit filename="../TestProject/main.cpp">
+			<Option target="Test" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

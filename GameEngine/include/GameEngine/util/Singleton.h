@@ -11,13 +11,13 @@ namespace Gen
     public:
         static T* getInstance()
         {
-            static std::unique_ptr<T> instance = std::make_unique<T>();
+            static std::unique_ptr<T> instance = std::move(std::make_unique<T>());
             return instance.get();
         }
 
     protected:
-        Singleton<T>()                    = default;
-        Singleton<T>(const Singleton<T>&) = default;
+        Singleton() = default;
+        Singleton(const Singleton<T>&) = default;
     };
 }  // namespace Gen
 

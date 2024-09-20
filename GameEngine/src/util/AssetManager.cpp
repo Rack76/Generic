@@ -2,6 +2,7 @@
 #include "GameEngine/Util/Parser.h"
 #include "GameEngine/System/Renderer.h"
 #include <vector>
+#include <array>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"
 
@@ -10,26 +11,41 @@ namespace Gen
 {
 	void AssetManager::Model::loadModel(std::string name, const char* path)
 	{
-		std::vector<float> positions;
+		std::vector<float> triangles;
 		std::vector<float> texCoords;
+		std::vector<float> vertices;
 
-		Parser::getModelData(path, positions, texCoords);
+		Parser::getModelData(path, triangles, texCoords, vertices);
 
-		uint32_t positionsBuffer = Renderer::Buffer::create();
+		for (int i = 0; i < vertices.size(); i += 3)
+		{
+			glm::vec3 vertex = glm::vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
+			AssetManager::Model::vertices[name].push_back(vertex);
+		}
+
+		for (int i = 0; i < triangles.size(); i += 9)
+		{
+			glm::vec3 vertex0 = glm::vec3(triangles[i], triangles[i + 1], triangles[i + 2]);
+			glm::vec3 vertex1 = glm::vec3(triangles[i + 3], triangles[i + 4], triangles[i + 5]);
+			glm::vec3 vertex2 = glm::vec3(triangles[i + 6], triangles[i + 7], triangles[i + 8]);
+			AssetManager::Model::triangles[name].push_back({ vertex0, vertex1, vertex2 });
+		}
+
+		uint32_t trianglesBuffer = Renderer::Buffer::create();
 		uint32_t texCoordsBuffer = Renderer::Buffer::create();
 
-		Renderer::Buffer::fill(positionsBuffer, 0, 3, positions);
+		Renderer::Buffer::fill(trianglesBuffer, 0, 3, triangles);
 		Renderer::Buffer::fill(texCoordsBuffer, 1, 2, texCoords);
 
 		uint32_t vertexAttributesArray = Renderer::BufferArray::create();
 
 		Renderer::BufferArray::bind(vertexAttributesArray);
 
-		Renderer::Buffer::bind(positionsBuffer, 0, 3);
+		Renderer::Buffer::bind(trianglesBuffer, 0, 3);
 		Renderer::Buffer::bind(texCoordsBuffer, 1, 2);
 
 		vertexAttributesArrays[name] = vertexAttributesArray;
-		vertexCounts[name] = positions.size() / 3;
+		vertexCounts[name] = triangles.size() / 3;
 	}
 
 	uint32_t AssetManager::Model::getMesh(std::string &name)
@@ -92,7 +108,8 @@ namespace Gen
 	}
 
 	std::unordered_map<std::string, uint32_t> AssetManager::Model::vertexAttributesArrays;
-	std::unordered_map<std::string, uint32_t> AssetManager::Model::positionsArrays;
+	std::unordered_map<std::string, std::vector<std::array<glm::vec3, 3>>> AssetManager::Model::triangles;
+	std::unordered_map<std::string, std::vector<glm::vec3>> AssetManager::Model::vertices;
 	std::unordered_map<std::string, uint32_t> AssetManager::Model::texCoordsArrays;
 	std::unordered_map<std::string, uint32_t> AssetManager::Model::indicesArrays;
 	std::unordered_map<std::string, int> AssetManager::Model::vertexCounts;

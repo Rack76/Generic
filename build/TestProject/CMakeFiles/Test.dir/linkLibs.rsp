@@ -1,0 +1,1 @@
+ ../GameEngine/libGameEngine.a C:/Users/rgter/source/repos/GameEngine/GameEngine/lib/OpenGL32.Lib C:/Users/rgter/source/repos/GameEngine/GameEngine/lib/glew32s.lib C:/Users/rgter/source/repos/GameEngine/GameEngine/lib/glfw3.lib -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

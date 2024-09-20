@@ -5,7 +5,7 @@
 void Gen::Physics::run(float dt)
 {
 	moveEntities(dt);
-	collisionDetection(dt);
+	//collisionDetection(dt);
 }
 
 void Gen::Physics::moveEntities(float dt)

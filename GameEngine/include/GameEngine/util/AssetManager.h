@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include "GameEngine/Core/File.h"
+#include "glm/glm.hpp"
 
 namespace Gen
 {
@@ -19,7 +20,8 @@ namespace Gen
 
 		private:
 			static std::unordered_map<std::string, uint32_t> vertexAttributesArrays;
-			static std::unordered_map<std::string, uint32_t> positionsArrays;
+			static std::unordered_map<std::string, std::vector<std::array<glm::vec3, 3>>> triangles;
+			static std::unordered_map<std::string, std::vector<glm::vec3>> vertices;
 			static std::unordered_map<std::string, uint32_t> texCoordsArrays;
 			static std::unordered_map<std::string, uint32_t> indicesArrays;
 			static std::unordered_map<std::string, int> vertexCounts;

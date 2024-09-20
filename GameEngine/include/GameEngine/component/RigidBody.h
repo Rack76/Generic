@@ -8,7 +8,7 @@
 
 namespace Gen
 {
-	class RigidBody
+	class RigidBody : public Component
 	{
 	public:
 		int addForceGenerator(std::function<glm::vec3(RigidBody*)>& f)
