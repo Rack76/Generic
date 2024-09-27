@@ -25,7 +25,7 @@ namespace Gen
 		}
 		int getWidth()
 		{
-			return height;
+			return width;
 		}
 
 	private:
