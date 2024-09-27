@@ -71,11 +71,13 @@ namespace Gen
 
 	void cursorCallback(GLFWwindow* window, double x, double y)
 	{
+		int xMiddle =  Window::getInstance()->getWidth() / 2;
+		int yMiddle = Window::getInstance()->getHeight() / 2;
 		auto data = (std::vector<void*>*)glfwGetWindowUserPointer(window);
 		auto f = (void (*)(double, double, float))(*data)[0];
 		float *dt = (float*)(*data)[2];
-		f(x, y, *dt);
-		glfwSetCursorPos(window, 0, 0);
+		f(x - xMiddle, y - yMiddle, *dt);
+		glfwSetCursorPos(window, xMiddle, yMiddle);
 	}
 
 	Window::Window()
@@ -87,6 +89,7 @@ namespace Gen
 		auto functionPointers = new std::vector<void*>;
 		glfwSetWindowUserPointer(window, (void*)functionPointers);
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetCursorPos(window, width/2, height/2);
 	}
 
 	Window::~Window()
