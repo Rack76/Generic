@@ -13,12 +13,12 @@ namespace Gen
 	class PlayerInput : public Component
 	{
 	public:
-		void addAction(int trigger, std::function<void(std::any, int)> action);
+		void addAction(int trigger, int actionEnum);
 
 		void runActions(int trigger, std::any data = 0);
 
 	private:
-		std::map<int, std::vector<std::function<void(std::any, int)>>> actions;
+		std::map<int, std::vector<int>> actions;
 	};
 }
 

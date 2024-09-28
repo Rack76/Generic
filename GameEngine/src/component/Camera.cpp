@@ -1,4 +1,5 @@
 #include "GameEngine/component/Camera.h"
+#include "GameEngine/enum/ActionEnum.h"
 
 namespace Gen
 {
@@ -17,20 +18,20 @@ namespace Gen
 			EntityManager::addComponents(entityId, PlayerInput{});
 
 		PlayerInput* playerInput = EntityManager::getComponent<PlayerInput>(entityId);
-		playerInput->addAction(A_KEY_PRESS, Action::moveCameraLeft);
-		playerInput->addAction(A_KEY_RELEASE, Action::stopCameraLeft);
-		playerInput->addAction(D_KEY_PRESS, Action::moveCameraRight);
-		playerInput->addAction(D_KEY_RELEASE, Action::stopCameraRight);
-		playerInput->addAction(SPACE_KEY_PRESS, Action::moveCameraUp);
-		playerInput->addAction(SPACE_KEY_RELEASE, Action::stopCameraUp);
-		playerInput->addAction(LEFT_SHIFT_KEY_PRESS, Action::moveCameraDown);
-		playerInput->addAction(LEFT_SHIFT_KEY_RELEASE, Action::stopCameraDown);
-		playerInput->addAction(W_KEY_PRESS, Action::moveCameraForward);
-		playerInput->addAction(W_KEY_RELEASE, Action::stopCameraForward);
-		playerInput->addAction(S_KEY_PRESS, Action::moveCameraBackward);
-		playerInput->addAction(S_KEY_RELEASE, Action::stopCameraBackward);
+		playerInput->addAction(A_KEY_PRESS, MOVE_CAMERA_LEFT);
+		playerInput->addAction(A_KEY_RELEASE, STOP_CAMERA_LEFT);
+		playerInput->addAction(D_KEY_PRESS, MOVE_CAMERA_RIGHT);
+		playerInput->addAction(D_KEY_RELEASE, STOP_CAMERA_RIGHT);
+		playerInput->addAction(SPACE_KEY_PRESS, MOVE_CAMERA_UP);
+		playerInput->addAction(SPACE_KEY_RELEASE, STOP_CAMERA_UP);
+		playerInput->addAction(LEFT_SHIFT_KEY_PRESS, MOVE_CAMERA_DOWN);
+		playerInput->addAction(LEFT_SHIFT_KEY_RELEASE, STOP_CAMERA_DOWN);
+		playerInput->addAction(W_KEY_PRESS, MOVE_CAMERA_FORWARD);
+		playerInput->addAction(W_KEY_RELEASE, STOP_CAMERA_FORWARD);
+		playerInput->addAction(S_KEY_PRESS, MOVE_CAMERA_BACKWARD);
+		playerInput->addAction(S_KEY_RELEASE, STOP_CAMERA_BACKWARD);
 
-		playerInput->addAction(MOUSE_MOTION, Action::rotateDebugCamera);
+		playerInput->addAction(MOUSE_MOTION, ROTATE_DEBUG_CAMERA);
 
 		AssetManager::Shader::setUniform("perspective", &perspective[0][0]);
 
