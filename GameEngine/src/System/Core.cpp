@@ -11,6 +11,9 @@
 #include "GameEngine/component/Transform.h"
 #include "GameEngine/component/Texture.h"
 #include "GameEngine/component/RigidBody.h"
+#include "GameEngine/enum/ActionEnum.h"
+#include "GameEngine/action/ActionManager.h"
+#include "GameEngine/action/Actions.h"
 #include <iostream>
 
 namespace Gen
@@ -26,6 +29,22 @@ namespace Gen
 		renderer->init();
 
 		File::setWorkingDirectory("../../../../GameEngine/asset");
+
+		ActionManager::addAction(MOVE_CAMERA_LEFT, Action::moveCameraLeft);
+		ActionManager::addAction(MOVE_CAMERA_RIGHT, Action::moveCameraRight);
+		ActionManager::addAction(MOVE_CAMERA_FORWARD, Action::moveCameraForward);
+		ActionManager::addAction(MOVE_CAMERA_BACKWARD, Action::moveCameraBackward);
+		ActionManager::addAction(MOVE_CAMERA_UP, Action::moveCameraUp);
+		ActionManager::addAction(MOVE_CAMERA_DOWN, Action::moveCameraDown);
+
+		ActionManager::addAction(STOP_CAMERA_LEFT, Action::stopCameraLeft);
+		ActionManager::addAction(STOP_CAMERA_RIGHT, Action::stopCameraRight);
+		ActionManager::addAction(STOP_CAMERA_FORWARD, Action::stopCameraForward);
+		ActionManager::addAction(STOP_CAMERA_BACKWARD, Action::stopCameraBackward);
+		ActionManager::addAction(STOP_CAMERA_UP, Action::stopCameraUp);
+		ActionManager::addAction(STOP_CAMERA_DOWN, Action::stopCameraDown);
+
+		ActionManager::addAction(ROTATE_DEBUG_CAMERA, Action::rotateDebugCamera);
 
 		AssetManager::Model::loadModel("circle", "model/CercleBasic.dae");
 		AssetManager::Model::loadModel("cube", "model/RectangleBasic.dae");
